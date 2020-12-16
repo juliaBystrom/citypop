@@ -13,7 +13,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {AppNavigator} from './routes/homeStack';
+import {AppNavigator} from './src/routes/homeStack';
 
 
 
