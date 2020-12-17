@@ -16,6 +16,7 @@ import {
 */
 
 export default function UserStringInput(props) {
+
     return (
         <View>
             <TextInput
@@ -23,7 +24,7 @@ export default function UserStringInput(props) {
                 textAlign='center'
                 textContentType={props.textContentType}
                 value={props.value}
-                onChange={props.onChange}
+                onChangeText={props.onChange}
              />
         </View>
     );
