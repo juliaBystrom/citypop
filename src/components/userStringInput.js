@@ -15,7 +15,7 @@ import {
 *  onChange - function to be executed when the input field is changed by the user
 */
 
-export default function UserStringInput({ props }) {
+export default function UserStringInput(props) {
     return (
         <View>
             <TextInput
