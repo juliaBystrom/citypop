@@ -1,17 +1,14 @@
 import React, { useReducer, useEffect } from 'react';
 import {
     View,
-    Text,
-    TextInput,
     Button
 } from 'react-native';
 import ScreenTitle from '../components/screenTitle';
 import UserStringInput from '../components/userStringInput';
-import axios from 'axios';
+import UtilAPI from '../utils/utilAPI';
 import { BASEURL } from '../../constants';
 import { USERNAME } from '../../credentials';
 
-// Empty SearchByCityScreen.
 
 const initialState = {
     city: '',
@@ -49,12 +46,13 @@ export default function SearchByCityScreen({ navigation }) {
 
     var data = {
         'name': city,
-        'featureCode': 'PPL',
+        'name_equals': city,
+        'featureClass': 'P',
+        'isNameRequired': 'true',
         'username': USERNAME,
         'type': 'json',
-        'orderby': 'population',
-        'maxRows': '5',
-
+        'orderby': 'relevance',
+        'maxRows': '1',
 
     };
 
@@ -62,21 +60,10 @@ export default function SearchByCityScreen({ navigation }) {
     const pressHandler = () => {
 
         dispatch({ type: 'search' });
+        UtilAPI({baseURL: BASEURL, data: data});
 
-        var searchParams = new URLSearchParams(data);
 
 
-        console.log(BASEURL + searchParams);
-        console.log("----------------------");
-
-        fetch(BASEURL + searchParams).then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson);
-                return responseJson;
-            })
-            .catch((error) => {
-                console.error(error);
-            });
     }
 
     // Function handles when the user press search
