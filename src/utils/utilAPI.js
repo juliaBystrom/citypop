@@ -30,7 +30,7 @@ export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
             let population = responseJson.geonames[0].population;
             console.log(name);
             console.log(population);
-            onSuccess({ displayCity: name, population: population });
+            onSuccess({ cityName: name, populationOfCity: population });
 
             return responseJson;
         })
