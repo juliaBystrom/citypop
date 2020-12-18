@@ -9,14 +9,12 @@ onError: function to be executed if the API request catches an error. Parameter 
 import {ERROR_MESSAGE} from './../../constants';
 
 export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
-    console.log("---------------");
     let searchParams = new URLSearchParams(data);
     let url = encodeURI(baseURL + searchParams);
     console.log(url);
 
     fetch(url)
         .then((response) => {
-            console.log("Respnos: ");
             console.log(response);
             if (!response.ok) {
                 // Throws an Error to be caught in the catch statement
@@ -28,8 +26,6 @@ export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
             console.log(responseJson);
             let name = responseJson.geonames[0].name;
             let population = responseJson.geonames[0].population;
-            console.log(name);
-            console.log(population);
             onSuccess({ cityName: name, populationOfCity: population });
 
             return responseJson;
