@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import {
     View,
     Text,
@@ -82,7 +82,7 @@ export default function SearchByCountryScreen({ navigation }) {
         'maxRows': '3',
     };
 
-    // Function that handles when a user search fo a city
+    // Function that handles when a user search fo a country
     const pressHandler = () => {
         dispatch({ type: 'search' });
         UtilAPI({ baseURL: BASEURL, data: data, onSuccess: successSearch, onError: errorSearch });
