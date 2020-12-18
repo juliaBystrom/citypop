@@ -14,6 +14,8 @@ const initialState = {
     city: '',
     isLoading: false,
     error: '',
+    displayCity: '',
+    population: 0,
 }
 
 function reducer(state, action) {
@@ -31,6 +33,15 @@ function reducer(state, action) {
                 isLoading: true,
             }
         }
+        case 'success': {
+            return {
+                ...state,
+                city: '',
+                isLoading: false,
+                displayCity: action.displayCity,
+                population: action.population,
+            }
+        }
         default:
             return state;
 
@@ -43,7 +54,7 @@ export default function SearchByCityScreen({ navigation }) {
     const [state, dispatch] = useReducer(reducer, initialState)
     const { city, isLoading, error } = state;
 
-
+    // data parameters to be sent 
     var data = {
         'name': city,
         'name_equals': city,
@@ -56,21 +67,25 @@ export default function SearchByCityScreen({ navigation }) {
 
     };
 
-    // Function that ahndles when a user search fo a city
+    // Function that handles when a user search fo a city
     const pressHandler = () => {
-
         dispatch({ type: 'search' });
-        UtilAPI({baseURL: BASEURL, data: data});
-
-
+        UtilAPI({baseURL: BASEURL, data: data, onSuccess: successSearch});
 
     }
 
     // Function handles when the user press search
     const onChangeInput = (city) => {
         dispatch({ type: 'fieldChange', fieldName: 'city', payload: city });
-        console.log(state);
     }
+
+    // Function handles when the search query successed
+    // Parameters is city name to display and population to be sent to the next frame
+    const successSearch = (displayCity, population ) => {
+        dispatch({type: 'success',displayCity: displayCity, population:  population});
+        console.log("success");
+    }
+
 
 
     return (
