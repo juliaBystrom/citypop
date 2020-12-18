@@ -8,6 +8,7 @@ import UserStringInput from '../components/userStringInput';
 import UtilAPI from '../utils/utilAPI';
 import { BASEURL } from '../../constants';
 import { USERNAME } from '../../credentials';
+import useDidMount from '../utils/useDidMount';
 
 
 const initialState = {
@@ -62,6 +63,9 @@ export default function SearchByCityScreen({ navigation }) {
     const [state, dispatch] = useReducer(reducer, initialState)
     const { city, isLoading, error, displayCity, population } = state;
 
+    // False if the component is just being rendered and inserted into dom, true if not
+    const didMount = useDidMount();
+
     // data parameters to be sent 
     var data = {
         'name': city,
@@ -89,14 +93,23 @@ export default function SearchByCityScreen({ navigation }) {
 
     // Function handles when the search query successed
     // Parameters is city name to display and population to be sent to the next screen CityInhabitants
-    const successSearch = (displayCity, population) => {
-        dispatch({ type: 'success', displayCity: displayCity, population: population });
-        navigation.navigate('CityInhabitants', {
-            displayCity: displayCity,
-            population: population,
-        });
+    const successSearch = (props) => {
+        dispatch({ type: 'success', displayCity: props.cityName, population: props.populationOfCity });
+
 
     }
+
+    useEffect(() => {
+        if (didMount) {
+            navigation.navigate('CityInhabitants', {
+                displayCity: displayCity,
+                population: population,
+            });
+
+        }
+
+    }, [displayCity, population]
+    )
 
     // Function handles when the search query gives an error
     // Parameters is city name to display and population to be sent to the next frame
