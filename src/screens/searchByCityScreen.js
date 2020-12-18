@@ -60,7 +60,7 @@ function reducer(state, action) {
 
 export default function SearchByCityScreen({ navigation }) {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const { city, isLoading, error } = state;
+    const { city, isLoading, error, displayCity, population } = state;
 
     // data parameters to be sent 
     var data = {
@@ -88,15 +88,20 @@ export default function SearchByCityScreen({ navigation }) {
     }
 
     // Function handles when the search query successed
-    // Parameters is city name to display and population to be sent to the next frame
+    // Parameters is city name to display and population to be sent to the next screen CityInhabitants
     const successSearch = (displayCity, population) => {
         dispatch({ type: 'success', displayCity: displayCity, population: population });
+        navigation.navigate('CityInhabitants', {
+            displayCity: displayCity,
+            population: population,
+        });
+
     }
 
     // Function handles when the search query gives an error
     // Parameters is city name to display and population to be sent to the next frame
     const errorSearch = (errorMessage) => {
-        dispatch({ type: 'error', errorMessage: errorMessage});
+        dispatch({ type: 'error', errorMessage: errorMessage });
     }
 
 

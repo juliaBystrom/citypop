@@ -7,10 +7,11 @@ import {
 
 // Empty CityInhabitantsScreen. 
 
-export default function CityInhabitantsScreen({ navigation }) {
+export default function CityInhabitantsScreen({ route, navigation }) {
+    const { displayCity, population } = route.params;
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>City Inhabitants Screen</Text>
+        <ScreenTitle title="City Inhabitants Screen"/>
         </View>
     );
 }
