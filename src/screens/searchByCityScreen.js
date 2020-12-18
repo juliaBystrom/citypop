@@ -85,17 +85,10 @@ export default function SearchByCityScreen({ navigation }) {
         UtilAPI({ baseURL: BASEURL, data: data, onSuccess: successSearch, onError: errorSearch });
 
     }
-
-    // Function handles when the user press search
-    const onChangeInput = (city) => {
-        dispatch({ type: 'fieldChange', fieldName: 'city', payload: city });
-    }
-
     // Function handles when the search query successed
     // Parameters is city name to display and population to be sent to the next screen CityInhabitants
     const successSearch = (props) => {
         dispatch({ type: 'success', displayCity: props.cityName, population: props.populationOfCity });
-
 
     }
 
@@ -128,18 +121,13 @@ export default function SearchByCityScreen({ navigation }) {
                 // set to location because input should be a city 
                 textContentType='location'
                 value={city}
-                onChange={onChangeInput}
+                onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
             />
             <Button
                 title='Search'
                 onPress={pressHandler}
 
             />
-
-
-
-
-
         </View>
     );
 }
