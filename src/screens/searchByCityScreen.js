@@ -87,8 +87,12 @@ export default function SearchByCityScreen({ navigation }) {
     }
     // Function handles when the search query successed
     // Parameters is city name to display and population to be sent to the next screen CityInhabitants
-    const successSearch = (props) => {
-        dispatch({ type: 'success', displayCity: props.cityName, population: props.populationOfCity });
+    const successSearch = ({responseJson}) => {
+        let name = responseJson.geonames[0].name;
+        let population = responseJson.geonames[0].population;
+        console.log(name);
+        console.log(population);
+        dispatch({ type: 'success', displayCity: name, population: population });
 
     }
 
