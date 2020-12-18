@@ -42,6 +42,14 @@ function reducer(state, action) {
                 population: action.population,
             }
         }
+        case 'error': {
+            return {
+                ...state,
+                isLoading: false,
+                error: action.errorMessage,
+            }
+
+        }
         default:
             return state;
 
@@ -70,7 +78,7 @@ export default function SearchByCityScreen({ navigation }) {
     // Function that handles when a user search fo a city
     const pressHandler = () => {
         dispatch({ type: 'search' });
-        UtilAPI({baseURL: BASEURL, data: data, onSuccess: successSearch});
+        UtilAPI({ baseURL: BASEURL, data: data, onSuccess: successSearch, onError: errorSearch });
 
     }
 
@@ -81,10 +89,16 @@ export default function SearchByCityScreen({ navigation }) {
 
     // Function handles when the search query successed
     // Parameters is city name to display and population to be sent to the next frame
-    const successSearch = (displayCity, population ) => {
-        dispatch({type: 'success',displayCity: displayCity, population:  population});
-        console.log("success");
+    const successSearch = (displayCity, population) => {
+        dispatch({ type: 'success', displayCity: displayCity, population: population });
     }
+
+    // Function handles when the search query gives an error
+    // Parameters is city name to display and population to be sent to the next frame
+    const errorSearch = (errorMessage) => {
+        dispatch({ type: 'error', errorMessage: errorMessage});
+    }
+
 
 
 

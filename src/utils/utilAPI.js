@@ -3,21 +3,26 @@ Create API Get request with props:
 baseURL: en entry poing for the API request
 data: Parameters to be added to the baseURL
 onSuccess: function to be executed on successe
-
+onError: function to be executed if the API request catches an error. Parameter is error message.
 */
 
+import {ERROR_MESSAGE} from './../../constants';
 
-export default function UtilAPI({ baseURL, data, onSuccess }) {
-
+export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
+    console.log("---------------");
     let searchParams = new URLSearchParams(data);
     let url = encodeURI(baseURL + searchParams);
     console.log(url);
 
     fetch(url)
-        .then((response) => { 
+        .then((response) => {
             console.log("Respnos: ");
             console.log(response);
-            return response.json(); 
+            if (!response.ok) {
+                // Throws an Error to be caught in the catch statement
+                throw new Error(response.status);
+            }
+            return response.json();
         })
         .then((responseJson) => {
             console.log(responseJson);
@@ -25,12 +30,32 @@ export default function UtilAPI({ baseURL, data, onSuccess }) {
             let population = responseJson.geonames[0].population;
             console.log(name);
             console.log(population);
-            onSuccess({displayCity: name, population:  population});
+            onSuccess({ displayCity: name, population: population });
 
             return responseJson;
         })
         .catch((error) => {
-            console.error(error);
+            // If an error is thrown it will be caught and handeled here. 
+            // Depending on error type it will execute the onError funciton with appropriate error message  
+            let errorMessage = '';
+
+            if (error.Error >= 500) {
+                // Handle server errors
+                errorMessage = ERROR_MESSAGE.serverError;
+
+            } else if (error.Error >= 400) {
+                // Handle client errors
+                errorMessage = ERROR_MESSAGE.clientError;
+
+            } else {
+                // Handle Unknown errors
+                errorMessage = ERROR_MESSAGE.unknownError;
+
+            }
+            // Log error
+            console.log(errorMessage);
+            onError({errorMessage: errorMessage});
+
         });
 
 
