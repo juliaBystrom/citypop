@@ -6,33 +6,26 @@ onSuccess: function to be executed on successe
 onError: function to be executed if the API request catches an error. Parameter is error message.
 */
 
-import {ERROR_MESSAGE} from './../../constants';
+import {ERROR_MESSAGE} from '../../../constants';
 
 export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
-    console.log("---------------");
     let searchParams = new URLSearchParams(data);
     let url = encodeURI(baseURL + searchParams);
     console.log(url);
-
+    
     fetch(url)
         .then((response) => {
-            console.log("Respnos: ");
             console.log(response);
             if (!response.ok) {
                 // Throws an Error to be caught in the catch statement
-                throw new Error(response.status);
+                 
+                return new Error(response.status);
             }
             return response.json();
         })
         .then((responseJson) => {
             console.log(responseJson);
-            let name = responseJson.geonames[0].name;
-            let population = responseJson.geonames[0].population;
-            console.log(name);
-            console.log(population);
-            onSuccess({ displayCity: name, population: population });
-
-            return responseJson;
+            return onSuccess({responseJson: responseJson})
         })
         .catch((error) => {
             // If an error is thrown it will be caught and handeled here. 
@@ -54,6 +47,8 @@ export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
             }
             // Log error
             console.log(errorMessage);
+            console.log(error.Error);
+            console.log(error);
             onError({errorMessage: errorMessage});
 
         });
