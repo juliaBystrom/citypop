@@ -10,7 +10,7 @@ import { BASEURL } from '../../constants';
 import { USERNAME } from '../../credentials';
 import useDidMount from '../utils/useDidMount';
 import { getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry } from '../utils/data-fetching/apiParams';
-
+import {searchByCountryReducer} from '../utils/reducers';
 
 // SearchByCountryScreen 
 
@@ -27,46 +27,10 @@ const initialState = {
     countryCode: 0,
 
 }
-function reducer(state, action) {
-    switch (action.type) {
-        case 'fieldChange': {
-            return {
-                ...state,
-                [action.fieldName]: action.payload
 
-            };
-        }
-        case 'search': {
-            return {
-                ...state,
-                isLoading: true,
-            }
-        }
-        case 'success': {
-            return {
-                ...state,
-                country: '',
-                isLoading: false,
-                displayCountry: action.displayCountry,
-                cities: action.cities,
-            }
-        }
-        case 'error': {
-            return {
-                ...state,
-                isLoading: false,
-                error: action.errorMessage,
-            }
-
-        }
-        default:
-            return state;
-
-    }
-}
 
 export default function SearchByCountryScreen({ navigation }) {
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(searchByCountryReducer, initialState)
     const { country, isLoading, error, displayCountry, cities, countryCode } = state;
 
     // False if the component is just being rendered and inserted into dom, true if not
