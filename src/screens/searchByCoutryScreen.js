@@ -4,12 +4,12 @@ import {
     Text,
     Button,
 } from 'react-native';
-import ScreenTitle from '../components/screenTitle';
-import UserStringInput from '../components/userStringInput';
-import UtilAPI from '../utils/utilAPI';
+import { ScreenTitle, UserStringInput } from '../components';
+import UtilAPI from '../utils/data-fetching/utilAPI';
 import { BASEURL } from '../../constants';
 import { USERNAME } from '../../credentials';
 import useDidMount from '../utils/useDidMount';
+import { getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry } from '../utils/data-fetching/apiParams';
 
 
 // SearchByCountryScreen 
@@ -59,12 +59,6 @@ function reducer(state, action) {
             }
 
         }
-        case 'updateId': {
-            return {
-                ...state,
-                countryCode: action.countryCode,
-            }
-        }
         default:
             return state;
 
@@ -78,56 +72,36 @@ export default function SearchByCountryScreen({ navigation }) {
     // False if the component is just being rendered and inserted into dom, true if not
     const didMount = useDidMount();
 
-
-    // Data parameters to be sent when finding countryCode of country searched for
-    var dataFindCountry = {
-        'name': country,
-        'name_equals': country,
-        'featureClass': 'A',
-        'isNameRequired': 'true',
-        'username': USERNAME,
-        'type': 'json',
-        'orderby': 'relevance',
-        'maxRows': '1',
-    };
-
-
-    // Data parameters to be sent when finding largest cities of country searched for
-    var dataFindCities = {
-        'p': country,
-        'country': countryCode,
-        'featureClass': 'P',
-        'username': USERNAME,
-        'type': 'json',
-        'orderby': 'population',
-        'maxRows': '3',
-    };
-
     // Function that handles when a user search fo a country
     const pressHandler = () => {
         dispatch({ type: 'search' });
-        UtilAPI({ baseURL: BASEURL, data: dataFindCountry, onSuccess: successSearchCountry, onError: errorSearch });
+        UtilAPI({
+            baseURL: BASEURL,
+            data: getSearchParamsCountry(country),
+            onSuccess: successSearchCountry,
+            onError: errorSearch
+        });
 
     }
 
+    // When a country is successfully searched for.
+    // Will update state with country code from returned json. Then fetch the most populated cities of that country
     const successSearchCountry = ({ responseJson }) => {
         // Will return a list of only the name´s of cities 
         const countryCode = responseJson.geonames[0].countryCode;
-        dispatch({ type: 'updateId', countryCode: countryCode });
+        dispatch({ type: 'fieldChange', fieldName: 'countryCode', payload: countryCode });
+
+        UtilAPI({
+            baseURL: BASEURL,
+            data: getSearchParamsMostPopulatedCitiesOfCountry(country, countryCode),
+            onSuccess: successSearch,
+            onError: errorSearch
+        });
 
     }
 
-    // When the countryCode is changed this userhock will call UtilAPI to search for largest city within that country
-    useEffect(() => {
-        if (didMount) {
-            UtilAPI({ baseURL: BASEURL, data: dataFindCities, onSuccess: successSearch, onError: errorSearch });
-        }
-
-    }, [countryCode]
-    )
-
-    // Function handles when the search query successed
-    // Parameters is country name to display with up to 3 of the most populated cities in that country
+    // If most populated cities of country is fetched this funciton will parse json to an array of found cities containing name and populaiton.
+    // The dispatch funciton will update the state.
     const successSearch = ({ responseJson }) => {
         // Will return a list of only the name´s of cities 
         const citiesFound = responseJson.geonames.map((entry) => {

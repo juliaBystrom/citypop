@@ -3,11 +3,10 @@ import {
     View,
     Button
 } from 'react-native';
-import ScreenTitle from '../components/screenTitle';
-import UserStringInput from '../components/userStringInput';
-import UtilAPI from '../utils/utilAPI';
+import { ScreenTitle, UserStringInput } from '../components';
+import UtilAPI from '../utils/data-fetching/utilAPI';
+import { getSearchParamsCityGlobally } from '../utils/data-fetching/apiParams';
 import { BASEURL } from '../../constants';
-import { USERNAME } from '../../credentials';
 import useDidMount from '../utils/useDidMount';
 
 
@@ -66,36 +65,34 @@ export default function SearchByCityScreen({ navigation }) {
     // False if the component is just being rendered and inserted into dom, true if not
     const didMount = useDidMount();
 
-    // data parameters to be sent 
-    var data = {
-        'name': city,
-        'name_equals': city,
-        'featureClass': 'P',
-        'isNameRequired': 'true',
-        'username': USERNAME,
-        'type': 'json',
-        'orderby': 'relevance',
-        'maxRows': '1',
 
-    };
 
     // Function that handles when a user search fo a city
     const pressHandler = () => {
         dispatch({ type: 'search' });
-        UtilAPI({ baseURL: BASEURL, data: data, onSuccess: successSearch, onError: errorSearch });
+        UtilAPI({
+            baseURL: BASEURL,
+            data: getSearchParamsCityGlobally(city),
+            onSuccess: successSearch,
+            onError: errorSearch
+        });
 
     }
-    // Function handles when the search query successed
-    // Parameters is city name to display and population to be sent to the next screen CityInhabitants
-    const successSearch = ({responseJson}) => {
+
+    // When a city is successfully searched for the json is parsed to get name and populaiton. State is updated acordingly. 
+    const successSearch = ({ responseJson }) => {
         let name = responseJson.geonames[0].name;
         let population = responseJson.geonames[0].population;
-        console.log(name);
-        console.log(population);
-        dispatch({ type: 'success', displayCity: name, population: population });
+
+        dispatch({
+            type: 'success',
+            displayCity: name,
+            population: population
+        });
 
     }
 
+    // When displayCity or cities is updated this use effect hock will navigate to CityInhabitants screen
     useEffect(() => {
         if (didMount) {
             navigation.navigate('CityInhabitants', {
@@ -109,7 +106,6 @@ export default function SearchByCityScreen({ navigation }) {
     )
 
     // Function handles when the search query gives an error
-    // Parameters is city name to display and population to be sent to the next frame
     const errorSearch = (errorMessage) => {
         dispatch({ type: 'error', errorMessage: errorMessage });
     }
