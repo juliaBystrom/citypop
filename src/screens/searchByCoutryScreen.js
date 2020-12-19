@@ -7,7 +7,7 @@ import {
 import ScreenTitle from '../components/screenTitle';
 import UserStringInput from '../components/userStringInput';
 import UtilAPI from '../utils/utilAPI';
-import { BASEURL, BASEURLCONTAINS } from '../../constants';
+import { BASEURL } from '../../constants';
 import { USERNAME } from '../../credentials';
 import useDidMount from '../utils/useDidMount';
 
