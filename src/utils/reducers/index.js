@@ -1,5 +1,5 @@
-import searchByCountryReducer from './searchByCountryReducer.js';
-import searchByCityReducer from './searchByCityReducer.js';
+import searchByCountryReducer from './searchByCountryReducer';
+import searchByCityReducer from './searchByCityReducer';
 
 
 export {searchByCountryReducer, searchByCityReducer};

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { ScreenTitle, UserStringInput } from '../components';
 import UtilAPI from '../utils/data-fetching/utilAPI';
-import searchByCityReducer from '../utils/reducers';
+import { searchByCityReducer as reducer } from '../utils/reducers';
 import { getSearchParamsCityGlobally } from '../utils/data-fetching/apiParams';
 import { BASEURL } from '../../constants';
 import useDidMount from '../utils/useDidMount';
@@ -22,7 +22,7 @@ const initialState = {
 
 
 export default function SearchByCityScreen({ navigation }) {
-    const [state, dispatch] = useReducer(searchByCityReducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
     const { city, isLoading, error, displayCity, population } = state;
 
     // False if the component is just being rendered and inserted into dom, true if not
