@@ -3,15 +3,14 @@ import {
     View,
     Button,
 } from 'react-native';
-import { ScreenTitle, UserStringInput } from '../components';
+import { ScreenTitle, UserStringInput, IconButton } from '../components';
+import { ERROR_MESSAGE,ICONS, BASEURL} from '../../constants';
 import UtilAPI from '../utils/data-fetching/utilAPI';
 import validInput from '../utils/validInput';
 import checkStatus from '../utils/data-fetching/checkStatus';
-import { BASEURL } from '../../constants';
 import useDidMount from '../utils/useDidMount';
 import { getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry } from '../utils/data-fetching/apiParams';
 import { searchByCountryReducer as reducer } from '../utils/reducers';
-import { ERROR_MESSAGE } from '../../constants';
 
 
 // SearchByCountryScreen 
@@ -38,7 +37,7 @@ export default function SearchByCountryScreen({ navigation }) {
     const didMount = useDidMount();
 
     // Function that handles when a user search fo a country
-    const pressHandler = () => {
+    const pressSearchHandler = () => {
         if (country.length === 0) {
             // If length of search term is 0
             return errorSearch(ERROR_MESSAGE.notValidInputLength);
@@ -134,9 +133,9 @@ export default function SearchByCountryScreen({ navigation }) {
                 value={country}
                 onChange={(country) => dispatch({ type: 'fieldChange', fieldName: 'country', payload: country })}
             />
-            <Button
-                title='Search'
-                onPress={pressHandler}
+            <IconButton
+                iconName={ICONS.search}
+                onPress={pressSearchHandler}
             />
 
         </View>

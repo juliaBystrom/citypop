@@ -3,15 +3,15 @@ import {
     View,
     Button
 } from 'react-native';
-import { ScreenTitle, UserStringInput } from '../components';
+import { ScreenTitle, UserStringInput, IconButton } from '../components';
+import { ERROR_MESSAGE, ICONS,BASEURL } from '../../constants';
 import UtilAPI from '../utils/data-fetching/utilAPI';
 import validInput from '../utils/validInput';
 import { searchByCityReducer as reducer } from '../utils/reducers';
 import { getSearchParamsCityGlobally } from '../utils/data-fetching/apiParams';
 import checkStatus from '../utils/data-fetching/checkStatus';
-import { BASEURL } from '../../constants';
 import useDidMount from '../utils/useDidMount';
-import { ERROR_MESSAGE } from '../../constants';
+
 
 
 const initialState = {
@@ -31,7 +31,7 @@ export default function SearchByCityScreen({ navigation }) {
     const didMount = useDidMount();
 
     // Function that handles when a user search fo a city
-    const pressHandler = () => {
+    const pressSearchHandler = () => {
 
         if (city.length === 0) {
             // If length of search term is 0
@@ -106,9 +106,9 @@ export default function SearchByCityScreen({ navigation }) {
                 value={city}
                 onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
             />
-            <Button
-                title='Search'
-                onPress={pressHandler}
+            <IconButton
+                iconName={ICONS.search}
+                onPress={pressSearchHandler}
 
             />
         </View>
