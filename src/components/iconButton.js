@@ -13,11 +13,11 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-export default function IconButton(iconName, onPress) {
+export default function IconButton({iconName}, onPress) {
     
     return (
         <Pressable onPress={onPress}>
-            <Icon name={iconName} size={30} color="#900" />
+            <Icon name={iconName} size={30} />
         </Pressable>
     );
 }
