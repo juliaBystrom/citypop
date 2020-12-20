@@ -5,10 +5,13 @@ import {
 } from 'react-native';
 import { ScreenTitle, UserStringInput } from '../components';
 import UtilAPI from '../utils/data-fetching/utilAPI';
-import searchByCityReducer from '../utils/reducers';
+import validInput from '../utils/validInput';
+import { searchByCityReducer as reducer } from '../utils/reducers';
 import { getSearchParamsCityGlobally } from '../utils/data-fetching/apiParams';
+import checkStatus from '../utils/data-fetching/checkStatus';
 import { BASEURL } from '../../constants';
 import useDidMount from '../utils/useDidMount';
+import { ERROR_MESSAGE } from '../../constants';
 
 
 const initialState = {
@@ -20,38 +23,53 @@ const initialState = {
 }
 
 
-
 export default function SearchByCityScreen({ navigation }) {
-    const [state, dispatch] = useReducer(searchByCityReducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
     const { city, isLoading, error, displayCity, population } = state;
 
     // False if the component is just being rendered and inserted into dom, true if not
     const didMount = useDidMount();
 
-
-
     // Function that handles when a user search fo a city
     const pressHandler = () => {
-        dispatch({ type: 'search' });
-        UtilAPI({
-            baseURL: BASEURL,
-            data: getSearchParamsCityGlobally(city),
-            onSuccess: successSearch,
-            onError: errorSearch
-        });
+
+        if (city.length === 0) {
+            // If length of search term is 0
+            return errorSearch(ERROR_MESSAGE.notValidInputLength);
+
+
+        } else if (validInput(city)) {
+            dispatch({ type: 'search' });
+            UtilAPI({
+                baseURL: BASEURL,
+                data: getSearchParamsCityGlobally(city),
+                onSuccess: successSearch,
+                onError: errorSearch
+            });
+        } else {
+            // If search term contains non alphanumeric characters
+            return errorSearch(ERROR_MESSAGE.notValidInputChar);
+        }
+
 
     }
 
     // When a city is successfully searched for the json is parsed to get name and populaiton. State is updated acordingly. 
-    const successSearch = ({ responseJson }) => {
-        let name = responseJson.geonames[0].name;
-        let population = responseJson.geonames[0].population;
+    const successSearch = (responseJson) => {
 
-        dispatch({
-            type: 'success',
-            displayCity: name,
-            population: population
-        });
+        let noError = checkStatus(responseJson, errorSearch, ERROR_MESSAGE.noCityFound);
+
+        if (noError) {
+            let name = responseJson.geonames[0]?.name;
+            let population = responseJson.geonames[0]?.population;
+
+            dispatch({
+                type: 'success',
+                displayCity: name,
+                population: population
+            });
+
+        }
 
     }
 
@@ -70,6 +88,8 @@ export default function SearchByCityScreen({ navigation }) {
 
     // Function handles when the search query gives an error
     const errorSearch = (errorMessage) => {
+        console.log("ERROR MESSSAGE GIVEN:");
+        console.log(errorMessage);
         dispatch({ type: 'error', errorMessage: errorMessage });
     }
 
