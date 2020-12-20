@@ -10,7 +10,7 @@ import { BASEURL } from '../../constants';
 import { USERNAME } from '../../credentials';
 import useDidMount from '../utils/useDidMount';
 import { getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry } from '../utils/data-fetching/apiParams';
-import {searchByCountryReducer} from '../utils/reducers';
+import { searchByCountryReducer as reducer } from '../utils/reducers';
 
 // SearchByCountryScreen 
 
@@ -30,7 +30,7 @@ const initialState = {
 
 
 export default function SearchByCountryScreen({ navigation }) {
-    const [state, dispatch] = useReducer(searchByCountryReducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
     const { country, isLoading, error, displayCountry, cities, countryCode } = state;
 
     // False if the component is just being rendered and inserted into dom, true if not
