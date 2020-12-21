@@ -6,7 +6,7 @@ onSuccess: function to be executed on successe
 onError: function to be executed if the API request catches an error. Parameter is error message.
 */
 
-import { ERROR_MESSAGE } from '../../../constants';
+import { ERROR_MESSAGE } from '../../shared/constants';
 
 
 export default function UtilAPI({ baseURL, data, onSuccess, onError }) {
