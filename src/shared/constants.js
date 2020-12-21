@@ -1,5 +1,5 @@
-export const BASEURL = 'http://api.geonames.org/searchJSON?';
-export const ERROR_MESSAGE = {
+const BASEURL = 'http://api.geonames.org/searchJSON?';
+const ERROR_MESSAGE = {
     serverError: 'Internal server error while loading data, please waint and try again later.',
     clientError: 'Bad request error, please contact app administraton',
     unknownError: 'Unknown error, please waint and try again later.',
@@ -11,3 +11,8 @@ export const ERROR_MESSAGE = {
     notValidInputLength: 'Search term need to contan at least one character',
     noSearchResult: 'Search term gave no result, try another one',
 };
+const ICONS = {
+    search: "search",
+}
+
+export { BASEURL, ERROR_MESSAGE, ICONS }

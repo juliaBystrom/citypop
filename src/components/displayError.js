@@ -8,15 +8,16 @@ import sharedStyles from '../shared/sharedStyles';
 
 
 /*
-*  Text component to be used for titles on screens
+*  Text component to be used for display a error
 *  Input props: Title string to be displayed
 *
 */
 
-export default function ScreenTitle({title}) {
+export default function DisplayError({error}) {
+
     return (
-        <View style={sharedStyles.screenTitleContainer}>
-            <Text style={sharedStyles.screenTitle}>{title}</Text>
+        <View style={sharedStyles.errorDisplay}>
+            <Text style={sharedStyles.bodytext}>{error}</Text>
         </View>
     );
 }

@@ -18,6 +18,7 @@ export default function searchByCityReducer(state, action) {
             return {
                 ...state,
                 isLoading: true,
+                showError: false,
             }
         }
         case 'success': {
@@ -33,6 +34,7 @@ export default function searchByCityReducer(state, action) {
             return {
                 ...state,
                 isLoading: false,
+                showError: true,
                 error: action.errorMessage,
             }
 

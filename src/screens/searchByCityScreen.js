@@ -1,23 +1,25 @@
 import React, { useReducer, useEffect } from 'react';
 import {
     View,
-    Button
+    ActivityIndicator
 } from 'react-native';
-import { ScreenTitle, UserStringInput } from '../components';
+import { ScreenTitle, UserStringInput, IconButton, DisplayError } from '../components';
+import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
+import sharedStyles from '../shared/sharedStyles';
 import UtilAPI from '../utils/data-fetching/utilAPI';
 import validInput from '../utils/validInput';
 import { searchByCityReducer as reducer } from '../utils/reducers';
 import { getSearchParamsCityGlobally } from '../utils/data-fetching/apiParams';
 import checkStatus from '../utils/data-fetching/checkStatus';
-import { BASEURL } from '../../constants';
 import useDidMount from '../utils/useDidMount';
-import { ERROR_MESSAGE } from '../../constants';
+
 
 
 const initialState = {
     city: '',
     isLoading: false,
     error: '',
+    showError: false,
     displayCity: '',
     population: 0,
 }
@@ -25,13 +27,13 @@ const initialState = {
 
 export default function SearchByCityScreen({ navigation }) {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const { city, isLoading, error, displayCity, population } = state;
+    const { city, isLoading, error, displayCity, population, showError } = state;
 
     // False if the component is just being rendered and inserted into dom, true if not
     const didMount = useDidMount();
 
     // Function that handles when a user search fo a city
-    const pressHandler = () => {
+    const pressSearchHandler = () => {
 
         if (city.length === 0) {
             // If length of search term is 0
@@ -94,23 +96,28 @@ export default function SearchByCityScreen({ navigation }) {
     }
 
 
-
+    // To solve issue with react 0.63.3 the color of the ActivityIndicator is given as a string. Should be same color as COLORS.FOCUS
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <ScreenTitle title="Search By City Screen" />
-            <UserStringInput
-                placeholder='Enter a city'
-                // set to location because input should be a city 
-                textContentType='location'
-                value={city}
-                onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
-            />
-            <Button
-                title='Search'
-                onPress={pressHandler}
+        <View style={sharedStyles.basicContainer}>
 
-            />
+            <ScreenTitle title="Search By City Screen" />
+            {isLoading ? <ActivityIndicator size="large" color='#B4DC7F'/> :                <View style={sharedStyles.componentsContainer}>
+                    {showError ? DisplayError({ error }) : <></>}
+                    <UserStringInput
+                        placeholder='Enter a city'
+                        // set to location because input should be a city 
+                        textContentType='location'
+                        value={city}
+                        onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
+                    />
+                    <IconButton
+                        iconName={ICONS.search}
+                        onPressHandler={pressSearchHandler}
+
+                    />
+                </View>}
+
         </View>
     );
 }

@@ -19,6 +19,7 @@ export default function searchByCountryReducer(state, action) {
             return {
                 ...state,
                 isLoading: true,
+                showError: false,
             }
         }
         case 'success': {
@@ -34,6 +35,7 @@ export default function searchByCountryReducer(state, action) {
             return {
                 ...state,
                 isLoading: false,
+                showError: true,
                 error: action.errorMessage,
             }
 
