@@ -130,7 +130,6 @@ This folder contains: components, routes, screens, shared and utils
 ```
 src
  ┣ components
- ┃ ┣ basicContainer.js
  ┃ ┣ displayError.js
  ┃ ┣ iconButton.js
  ┃ ┣ index.js
@@ -158,9 +157,9 @@ src
  ┃ ┃ ┣ checkStatus.js
  ┃ ┃ ┗ utilAPI.js
  ┃ ┣ reducers
- ┃ ┃ ┣ index.js
  ┃ ┃ ┣ searchByCityReducer.js
  ┃ ┃ ┗ searchByCountryReducer.js
+ ┃ ┣ index.js
  ┃ ┣ useDidMount.js
  ┃ ┗ validInput.js
  ```
