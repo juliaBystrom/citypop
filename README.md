@@ -1,5 +1,7 @@
 # City Pop
 
+An application that enables the user to get population of cities. Either by searching for the city or choose the city from the most populated cities of searched for country.
+
 
 ## Installations needed for development
 
