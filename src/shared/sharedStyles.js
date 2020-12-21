@@ -25,11 +25,6 @@ export default sharedStyles = StyleSheet.create({
         textAlign: 'center',
     },
 
-    screenTitleUpercase: {
-        textTransform: 'uppercase',
-    },
-
-
     componentsContainer: {
         flex: 0.5,
         justifyContent: 'center',
@@ -37,13 +32,13 @@ export default sharedStyles = StyleSheet.create({
     },
 
     standardButton: {
-        // flex: 0.15,
         paddingVertical: 10,
         marginVertical: 10,
         justifyContent: 'center',
         borderColor: COLOR.ACCENT,
         borderWidth: 2,
     },
+    
     standardButtonColor: {
         borderColor: COLOR.ACCENT,
         backgroundColor: COLOR.SECONDARY_BACKGROUND,
@@ -67,8 +62,16 @@ export default sharedStyles = StyleSheet.create({
 
     textInput: {
         borderWidth: 2,
-        borderColor: COLOR.ACCENT,
         color: COLOR.TEXT,
+    },
+
+    textInputColor: {
+        borderColor: COLOR.ACCENT,
+        backgroundColor: COLOR.SECONDARY_BACKGROUND,
+    },
+
+    textInputOnFocusColor: {
+        borderColor: COLOR.FOCUS,
         backgroundColor: COLOR.SECONDARY_BACKGROUND,
     },
 
@@ -83,9 +86,6 @@ export default sharedStyles = StyleSheet.create({
         alignSelf: 'center'
     },
     
-
-
-
     populationDisplay: {
         alignItems: 'center',
         padding: 20,
