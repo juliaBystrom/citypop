@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import {
     View,
-    Button
+    ActivityIndicator
 } from 'react-native';
 import { ScreenTitle, UserStringInput, IconButton, DisplayError } from '../components';
 import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
@@ -96,26 +96,28 @@ export default function SearchByCityScreen({ navigation }) {
     }
 
 
-
+    // To solve issue with react 0.63.3 the color of the ActivityIndicator is given as a string. Should be same color as COLORS.FOCUS
 
     return (
         <View style={sharedStyles.basicContainer}>
-            <ScreenTitle title="Search By City Screen" />
-            <View style={sharedStyles.componentsContainer}>
-                {showError ?  DisplayError({error}): <></>}
-                <UserStringInput
-                    placeholder='Enter a city'
-                    // set to location because input should be a city 
-                    textContentType='location'
-                    value={city}
-                    onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
-                />
-                <IconButton
-                    iconName={ICONS.search}
-                    onPressHandler={pressSearchHandler}
 
-                />
-            </View>
+            <ScreenTitle title="Search By City Screen" />
+            {isLoading ? <ActivityIndicator size="large" color='#B4DC7F'/> :                <View style={sharedStyles.componentsContainer}>
+                    {showError ? DisplayError({ error }) : <></>}
+                    <UserStringInput
+                        placeholder='Enter a city'
+                        // set to location because input should be a city 
+                        textContentType='location'
+                        value={city}
+                        onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
+                    />
+                    <IconButton
+                        iconName={ICONS.search}
+                        onPressHandler={pressSearchHandler}
+
+                    />
+                </View>}
+
         </View>
     );
 }

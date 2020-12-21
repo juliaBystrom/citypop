@@ -1,17 +1,19 @@
 import React, { useReducer, useEffect } from 'react';
 import {
     View,
-    Button,
+    ActivityIndicator,
 } from 'react-native';
 import { ScreenTitle, UserStringInput, IconButton, DisplayError } from '../components';
 import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
 import sharedStyles from '../shared/sharedStyles';
+import COLOR from '../shared/sharedStyles';
 import UtilAPI from '../utils/data-fetching/utilAPI';
 import validInput from '../utils/validInput';
 import checkStatus from '../utils/data-fetching/checkStatus';
 import useDidMount from '../utils/useDidMount';
 import { getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry } from '../utils/data-fetching/apiParams';
 import { searchByCountryReducer as reducer } from '../utils/reducers';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
 // SearchByCountryScreen 
@@ -44,8 +46,8 @@ export default function SearchByCountryScreen({ navigation }) {
             // If length of search term is 0
             return errorSearch(ERROR_MESSAGE.notValidInputLength);
         } else if (validInput(country)) {
-
             dispatch({ type: 'search' });
+
             UtilAPI({
                 baseURL: BASEURL,
                 data: getSearchParamsCountry(country),
@@ -125,23 +127,25 @@ export default function SearchByCountryScreen({ navigation }) {
     }
 
 
-
+    // To solve issue with react 0.63.3 the color of the ActivityIndicator is given as a string. Should be same color as COLORS.FOCUS
     return (
         <View style={sharedStyles.basicContainer}>
             <ScreenTitle title="SEARCH BY COUNTRY" />
-            <View style={sharedStyles.componentsContainer}>
-                {showError ? DisplayError({ error }) : <></>}
-                <UserStringInput
-                    placeholder='Enter a country'
-                    textContentType='countryName'
-                    value={country}
-                    onChange={(country) => dispatch({ type: 'fieldChange', fieldName: 'country', payload: country })}
-                />
-                <IconButton
-                    iconName={ICONS.search}
-                    onPressHandler={pressSearchHandler}
-                />
-            </View>
+            {isLoading ? <ActivityIndicator size="large" color='#B4DC7F' /> :
+                <View style={sharedStyles.componentsContainer}>
+                    {showError ? DisplayError({ error }) : <></>}
+                    <UserStringInput
+                        placeholder='Enter a country'
+                        textContentType='countryName'
+                        value={country}
+                        onChange={(country) => dispatch({ type: 'fieldChange', fieldName: 'country', payload: country })}
+                    />
+                    <IconButton
+                        iconName={ICONS.search}
+                        onPressHandler={pressSearchHandler}
+                    />
+                </View>
+            }
 
         </View>
     );
