@@ -3,7 +3,7 @@ import {
     View,
     Button,
 } from 'react-native';
-import { ScreenTitle, UserStringInput, IconButton } from '../components';
+import { ScreenTitle, UserStringInput, IconButton, DisplayError } from '../components';
 import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
 import sharedStyles from '../shared/sharedStyles';
 import UtilAPI from '../utils/data-fetching/utilAPI';
@@ -20,6 +20,7 @@ const initialState = {
     country: '',
     isLoading: false,
     error: '',
+    showError: false,
     displayCountry: '',
     cities: [
         { city: '', population: 0 },
@@ -32,7 +33,7 @@ const initialState = {
 
 export default function SearchByCountryScreen({ navigation }) {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const { country, isLoading, error, displayCountry, cities, countryCode } = state;
+    const { country, isLoading, error, displayCountry, cities, countryCode, showError } = state;
 
     // False if the component is just being rendered and inserted into dom, true if not
     const didMount = useDidMount();
@@ -129,6 +130,7 @@ export default function SearchByCountryScreen({ navigation }) {
         <View style={sharedStyles.basicContainer}>
             <ScreenTitle title="SEARCH BY COUNTRY" />
             <View style={sharedStyles.componentsContainer}>
+                {showError ? DisplayError({ error }) : <></>}
                 <UserStringInput
                     placeholder='Enter a country'
                     textContentType='countryName'

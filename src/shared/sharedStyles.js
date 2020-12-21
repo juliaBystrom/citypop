@@ -38,7 +38,7 @@ export default sharedStyles = StyleSheet.create({
         borderColor: COLOR.ACCENT,
         borderWidth: 2,
     },
-    
+
     standardButtonColor: {
         borderColor: COLOR.ACCENT,
         backgroundColor: COLOR.SECONDARY_BACKGROUND,
@@ -85,7 +85,7 @@ export default sharedStyles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center'
     },
-    
+
     populationDisplay: {
         alignItems: 'center',
         padding: 20,
@@ -93,9 +93,14 @@ export default sharedStyles = StyleSheet.create({
         borderWidth: 2,
         borderColor: COLOR.ACCENT,
         backgroundColor: COLOR.SECONDARY_BACKGROUND,
+    },
+
+    errorDisplay: {
+        paddingVertical: 10,
+        marginVertical: 10,
+        justifyContent: 'center',
+        backgroundColor: COLOR.ALERT,
     }
-
-
 
 });
 
