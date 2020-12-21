@@ -5,11 +5,10 @@ import {
 } from 'react-native';
 import sharedStyles from '../shared/sharedStyles';
 
-
-
 /*
 *  Text component to be used for display a error
-*  Input props: Title string to be displayed
+*  Input props: 
+*  error - Title string to be displayed
 *
 */
 
