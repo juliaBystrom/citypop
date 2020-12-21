@@ -6,5 +6,5 @@
 
 
 export default function validInput(input){
-    return input.search('[^a-öA-Ö0-9_ ]') === -1 ? true : false;
+    return input.search('[^a-öA-Ö_ ]') === -1 ? true : false;
 }
