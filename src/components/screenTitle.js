@@ -6,10 +6,10 @@ import {
 import sharedStyles from '../shared/sharedStyles';
 
 
-
 /*
 *  Text component to be used for titles on screens
-*  Input props: Title string to be displayed
+*  Input props: 
+*  title - string to be displayed
 *
 */
 

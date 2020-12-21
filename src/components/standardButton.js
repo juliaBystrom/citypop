@@ -8,14 +8,18 @@ import {
 /*
 *  Button component to be used for buttons in screens
 *  Input props: 
-*  text string to be displayed on the button 
-*  onPress function to be executed when the button is pressed
+*  text -    string to be displayed on the button 
+*  onPress - function to be executed when the button is pressed
+*  
 */
 
 export default function StandardButton({ text, onPress }) {
 
     return (
-        <Pressable onPress={onPress} style={({ pressed }) => [(pressed ? sharedStyles.pressedButtonColor : sharedStyles.standardButtonColor), sharedStyles.standardButton]}>
+        <Pressable onPress={onPress} style={({ pressed }) => [
+            (pressed ? sharedStyles.pressedButtonColor : sharedStyles.standardButtonColor),
+            sharedStyles.standardButton
+        ]}>
             <Text style={sharedStyles.bodytext}>{text}</Text>
         </Pressable>
     );

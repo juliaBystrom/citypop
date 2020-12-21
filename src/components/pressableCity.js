@@ -7,11 +7,10 @@ import {
 import sharedStyles from '../shared/sharedStyles';
 
 
-
 /*
 *  A basic button 
 *  Input props: 
-*  name - Display string
+*  name -            Display string
 *  onPressFunction - Function o execute when the button is pressed
 */
 

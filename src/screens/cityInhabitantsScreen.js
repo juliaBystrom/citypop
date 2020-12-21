@@ -1,10 +1,8 @@
 import React from 'react';
 import {
     View,
-    Text,
 } from 'react-native';
-import PopulationDisplay from '../components/populationDisplay';
-import ScreenTitle from '../components/screenTitle';
+import { PopulationDisplay, ScreenTitle } from '../components/';
 import sharedStyles from '../shared/sharedStyles';
 
 

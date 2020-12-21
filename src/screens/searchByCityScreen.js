@@ -6,13 +6,7 @@ import {
 import { ScreenTitle, UserStringInput, IconButton, DisplayError } from '../components';
 import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
 import sharedStyles from '../shared/sharedStyles';
-import UtilAPI from '../utils/data-fetching/utilAPI';
-import validInput from '../utils/validInput';
-import { searchByCityReducer as reducer } from '../utils/reducers';
-import { getSearchParamsCityGlobally } from '../utils/data-fetching/apiParams';
-import checkStatus from '../utils/data-fetching/checkStatus';
-import useDidMount from '../utils/useDidMount';
-
+import { UtilAPI, validInput, searchByCityReducer as reducer, getSearchParamsCityGlobally, checkStatus, useDidMount } from '../utils/';
 
 
 const initialState = {
@@ -102,21 +96,21 @@ export default function SearchByCityScreen({ navigation }) {
         <View style={sharedStyles.basicContainer}>
 
             <ScreenTitle title="Search By City Screen" />
-            {isLoading ? <ActivityIndicator size="large" color='#B4DC7F'/> :                <View style={sharedStyles.componentsContainer}>
-                    {showError ? DisplayError({ error }) : <></>}
-                    <UserStringInput
-                        placeholder='Enter a city'
-                        // set to location because input should be a city 
-                        textContentType='location'
-                        value={city}
-                        onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
-                    />
-                    <IconButton
-                        iconName={ICONS.search}
-                        onPressHandler={pressSearchHandler}
+            {isLoading ? <ActivityIndicator size="large" color='#B4DC7F' /> : <View style={sharedStyles.componentsContainer}>
+                {showError ? DisplayError({ error }) : <></>}
+                <UserStringInput
+                    placeholder='Enter a city'
+                    // set to location because input should be a city 
+                    textContentType='location'
+                    value={city}
+                    onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
+                />
+                <IconButton
+                    iconName={ICONS.search}
+                    onPressHandler={pressSearchHandler}
 
-                    />
-                </View>}
+                />
+            </View>}
 
         </View>
     );

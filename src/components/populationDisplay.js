@@ -9,7 +9,8 @@ import sharedStyles from '../shared/sharedStyles';
 
 /*
 *  Displays population and a number
-*  Input props: population number to display
+*  Input props: 
+*  population - number to display
 *
 */
 
