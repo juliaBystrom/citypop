@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import PopulationDisplay from '../components/populationDisplay';
 import ScreenTitle from '../components/screenTitle';
+import sharedStyles from '../shared/sharedStyles';
 
 
 /* 
@@ -15,9 +16,11 @@ import ScreenTitle from '../components/screenTitle';
 export default function CityInhabitantsScreen({ route, navigation }) {
     const { displayCity, population } = route.params;
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={sharedStyles.basicContainer}>
             <ScreenTitle title={displayCity} />
-            <PopulationDisplay population={population} />
+            <View style={sharedStyles.componentsContainer}>
+                <PopulationDisplay population={population} />
+            </View>
 
         </View>
     );

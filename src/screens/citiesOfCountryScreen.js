@@ -5,6 +5,7 @@ import {
     FlatList,
 } from 'react-native';
 import { ScreenTitle, PressableCity } from '../components';
+import sharedStyles from '../shared/sharedStyles';
 
 
 
@@ -34,16 +35,17 @@ export default function CitiesOfCountryScreen({ route, navigation }) {
 
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={sharedStyles.basicContainer}>
             <ScreenTitle title={displayCountry} />
-            <FlatList
-                numColumns={1}
-                data={topCities}
-                keyExtractor={(entry) => entry.city}
-                renderItem={({ item }) => (
-                    <PressableCity name={item.city} onPressFunction={onCityPressed} />
-                )} />
-
+            <View style={sharedStyles.componentsContainer}>
+                <FlatList
+                    numColumns={1}
+                    data={topCities}
+                    keyExtractor={(entry) => entry.city}
+                    renderItem={({ item }) => (
+                        <PressableCity name={item.city} onPressFunction={onCityPressed} />
+                    )} />
+            </View>
         </View>
     );
 }

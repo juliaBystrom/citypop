@@ -3,6 +3,8 @@ import {
     View,
     Text,
 } from 'react-native';
+import sharedStyles from '../shared/sharedStyles';
+
 
 
 /*
@@ -13,9 +15,9 @@ import {
 
 export default function PopulationDisplay({population}) {
     return (
-        <View>
-            <Text>POPULATION</Text>
-            <Text>{population}</Text>
+        <View style={sharedStyles.populationDisplay}>
+            <Text style={sharedStyles.bodytext}>POPULATION</Text>
+            <Text style={[sharedStyles.bodytext,sharedStyles.largeText]}>{population}</Text>
         </View>
     );
 }

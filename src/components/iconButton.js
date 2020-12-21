@@ -11,13 +11,17 @@ import {
     Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import sharedStyles from '../shared/sharedStyles';
+import COLOR from '../shared/colorConstants';
 
 
-export default function IconButton({iconName}, onPress) {
-    
+export default function IconButton({iconName, onPressHandler}) {
+    const pressedButton = () =>{
+        onPressHandler();
+    }
     return (
-        <Pressable onPress={onPress}>
-            <Icon name={iconName} size={30} />
+        <Pressable onPress={pressedButton} style={sharedStyles.iconButton}>
+            <Icon name={iconName} size={40} color={COLOR.TEXT} />
         </Pressable>
     );
 }

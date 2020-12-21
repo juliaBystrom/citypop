@@ -4,6 +4,8 @@ import {
     Text,
     TextInput
 } from 'react-native';
+import sharedStyles from '../shared/sharedStyles';
+
 
 
 /*
@@ -25,6 +27,7 @@ export default function UserStringInput(props) {
                 textContentType={props.textContentType}
                 value={props.value}
                 onChangeText={props.onChange}
+                style={sharedStyles.textInput}
              />
         </View>
     );

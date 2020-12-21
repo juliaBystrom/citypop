@@ -4,7 +4,8 @@ import {
     Button
 } from 'react-native';
 import { ScreenTitle, UserStringInput, IconButton } from '../components';
-import { ERROR_MESSAGE, ICONS,BASEURL } from '../../constants';
+import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
+import sharedStyles from '../shared/sharedStyles';
 import UtilAPI from '../utils/data-fetching/utilAPI';
 import validInput from '../utils/validInput';
 import { searchByCityReducer as reducer } from '../utils/reducers';
@@ -97,20 +98,22 @@ export default function SearchByCityScreen({ navigation }) {
 
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={sharedStyles.basicContainer}>
             <ScreenTitle title="Search By City Screen" />
-            <UserStringInput
-                placeholder='Enter a city'
-                // set to location because input should be a city 
-                textContentType='location'
-                value={city}
-                onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
-            />
-            <IconButton
-                iconName={ICONS.search}
-                onPress={pressSearchHandler}
+            <View style={sharedStyles.componentsContainer}>
+                <UserStringInput
+                    placeholder='Enter a city'
+                    // set to location because input should be a city 
+                    textContentType='location'
+                    value={city}
+                    onChange={(city) => dispatch({ type: 'fieldChange', fieldName: 'city', payload: city })}
+                />
+                <IconButton
+                    iconName={ICONS.search}
+                    onPressHandler={pressSearchHandler}
 
-            />
+                />
+            </View>
         </View>
     );
 }

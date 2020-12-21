@@ -4,7 +4,8 @@ import {
     Button,
 } from 'react-native';
 import { ScreenTitle, UserStringInput, IconButton } from '../components';
-import { ERROR_MESSAGE,ICONS, BASEURL} from '../../constants';
+import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
+import sharedStyles from '../shared/sharedStyles';
 import UtilAPI from '../utils/data-fetching/utilAPI';
 import validInput from '../utils/validInput';
 import checkStatus from '../utils/data-fetching/checkStatus';
@@ -125,18 +126,20 @@ export default function SearchByCountryScreen({ navigation }) {
 
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={sharedStyles.basicContainer}>
             <ScreenTitle title="SEARCH BY COUNTRY" />
-            <UserStringInput
-                placeholder='Enter a country'
-                textContentType='countryName'
-                value={country}
-                onChange={(country) => dispatch({ type: 'fieldChange', fieldName: 'country', payload: country })}
-            />
-            <IconButton
-                iconName={ICONS.search}
-                onPress={pressSearchHandler}
-            />
+            <View style={sharedStyles.componentsContainer}>
+                <UserStringInput
+                    placeholder='Enter a country'
+                    textContentType='countryName'
+                    value={country}
+                    onChange={(country) => dispatch({ type: 'fieldChange', fieldName: 'country', payload: country })}
+                />
+                <IconButton
+                    iconName={ICONS.search}
+                    onPressHandler={pressSearchHandler}
+                />
+            </View>
 
         </View>
     );

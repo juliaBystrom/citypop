@@ -4,6 +4,8 @@ import {
     Text,
     Pressable,
 } from 'react-native';
+import sharedStyles from '../shared/sharedStyles';
+
 
 
 /*
@@ -20,8 +22,8 @@ export default function PressableCity({name, onPressFunction}) {
     }
     
     return (
-        <Pressable onPress={onPress}>
-            <Text>{name}</Text>
+        <Pressable onPress={onPress} style={sharedStyles.standardButton}>
+            <Text style={sharedStyles.bodytext}>{name}</Text>
         </Pressable>
     );
 }

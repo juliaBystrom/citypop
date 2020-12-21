@@ -13,9 +13,10 @@ import {
 */
 
 export default function StandardButton({ text, onPress }) {
+    
     return (
-        <Pressable onPress={onPress}>
-            <Text>{text}</Text>
+        <Pressable onPress={onPress} style={sharedStyles.standardButton}>
+            <Text style={sharedStyles.bodytext}>{text}</Text>
         </Pressable>
     );
 }

@@ -3,6 +3,8 @@ import {
     View,
     Text,
 } from 'react-native';
+import sharedStyles from '../shared/sharedStyles';
+
 
 
 /*
@@ -13,8 +15,8 @@ import {
 
 export default function ScreenTitle({title}) {
     return (
-        <View>
-            <Text>{title}</Text>
+        <View style={sharedStyles.screenTitleContainer}>
+            <Text style={sharedStyles.screenTitle}>{title}</Text>
         </View>
     );
 }
