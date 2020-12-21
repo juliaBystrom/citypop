@@ -22,7 +22,7 @@ export default function PressableCity({name, onPressFunction}) {
     }
     
     return (
-        <Pressable onPress={onPress} style={sharedStyles.standardButton}>
+        <Pressable onPress={onPress} style={({ pressed }) => [(pressed ? sharedStyles.pressedButtonColor : sharedStyles.standardButtonColor), sharedStyles.standardButton]}>
             <Text style={sharedStyles.bodytext}>{name}</Text>
         </Pressable>
     );
