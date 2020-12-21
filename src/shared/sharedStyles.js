@@ -100,7 +100,12 @@ export default sharedStyles = StyleSheet.create({
         marginVertical: 10,
         justifyContent: 'center',
         backgroundColor: COLOR.ALERT,
+    },
+
+    headerStyle:{
+        backgroundColor: COLOR.PRIMARY_BACKGROUND,
     }
+
 
 });
 
