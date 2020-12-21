@@ -7,6 +7,12 @@ import {
 import { ScreenTitle, StandardButton } from '../components';
 import sharedStyles from '../shared/sharedStyles';
 
+/*  
+* Home Screen that displays:
+*  City Pop title
+*  Buttons for SEARCH BY CITY, SEARCH BY COUNTRY
+*/
+
 
 
 export default function HomeScreen({ navigation }) {

@@ -6,15 +6,7 @@ import {
 import { ScreenTitle, UserStringInput, IconButton, DisplayError } from '../components';
 import { ERROR_MESSAGE, ICONS, BASEURL } from '../shared';
 import sharedStyles from '../shared/sharedStyles';
-import COLOR from '../shared/sharedStyles';
-import UtilAPI from '../utils/data-fetching/utilAPI';
-import validInput from '../utils/validInput';
-import checkStatus from '../utils/data-fetching/checkStatus';
-import useDidMount from '../utils/useDidMount';
-import { getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry } from '../utils/data-fetching/apiParams';
-import { searchByCountryReducer as reducer } from '../utils/reducers';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-
+import {UtilAPI,validInput, checkStatus, useDidMount, getSearchParamsCountry, getSearchParamsMostPopulatedCitiesOfCountry,searchByCountryReducer as reducer} from '../utils/';
 
 // SearchByCountryScreen 
 
